@@ -1,260 +1,132 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For My Love</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For JAH ❤️</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <style>
-body{
-    margin:0;
-    padding:0;
-    overflow:hidden;
+body {
+    margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    color:white;
-    text-align:center;
+    background: linear-gradient(to bottom, #ffe6f0, #fff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
 }
 
-/* BLURRED PHOTO BACKGROUND */
-.bg{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:url("yourphoto.jpg") center/cover no-repeat;
-    filter:blur(12px) brightness(40%);
-    z-index:-2;
+.container {
+    max-width: 500px;
+    padding: 20px;
 }
 
-/* GALAXY LAYER */
-.galaxy{
-    position:fixed;
-    width:200%;
-    height:200%;
-    background:radial-gradient(circle,#ffffff33 1px,transparent 1px);
-    background-size:50px 50px;
-    animation: moveGalaxy 60s linear infinite;
-    z-index:-1;
-}
-@keyframes moveGalaxy{
-    from{transform:translate(0,0);}
-    to{transform:translate(-500px,-500px);}
+h1 {
+    color: #ff4d88;
+    font-size: 28px;
+    margin-bottom: 10px;
 }
 
-/* PASSWORD */
-#passwordPage{
-    position:absolute;
-    width:100%;
-    top:35%;
+.letter {
+    background: black;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 20px 0;
+    line-height: 1.6;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
 }
 
-.password-box{
-    background:rgba(0,0,0,0.7);
-    padding:40px;
-    border-radius:20px;
-    box-shadow:0 0 30px hotpink;
-    display:inline-block;
+button {
+    background: #ff1493;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-input{
-    padding:12px;
-    border-radius:20px;
-    border:2px solid hotpink;
-    background:black;
-    color:white;
-    text-align:center;
-    font-size:16px;
+button:hover {
+    background: #ff69b4;
+    transform: scale(1.05);
 }
 
-button{
-    padding:12px 25px;
-    border:none;
-    border-radius:25px;
-    background:hotpink;
-    color:white;
-    cursor:pointer;
-    margin-top:15px;
-    font-size:16px;
-}
-
-button:hover{
-    background:#ff1493;
-}
-
-/* MAIN */
-#mainPage{
-    display:none;
-    position:absolute;
-    width:100%;
-    top:10%;
-    padding:20px;
-}
-
-h1{
-    font-size:42px;
-    text-shadow:0 0 25px hotpink;
-}
-
-#ring{
-    font-size:60px;
-    animation:ringPulse 2s infinite;
-}
-@keyframes ringPulse{
-    0%{transform:scale(1);}
-    50%{transform:scale(1.2);}
-    100%{transform:scale(1);}
-}
-
-#typeText{
-    width:80%;
-    margin:auto;
-    margin-top:20px;
-    font-size:20px;
-    line-height:1.9;
-    background:rgba(0,0,0,0.65);
-    padding:30px;
-    border-radius:20px;
-    min-height:250px;
-    box-shadow:0 0 30px rgba(255,105,180,0.6);
-}
-
-/* PROPOSAL BUTTON */
-#proposal{
-    display:none;
-    margin-top:30px;
-    font-size:20px;
-    padding:15px 35px;
-}
-
-/* FIREWORK */
-.firework{
-    position:absolute;
-    font-size:25px;
-    animation:explode 1s forwards;
-}
-@keyframes explode{
-    from{transform:scale(1);opacity:1;}
-    to{transform:scale(3);opacity:0;}
+.stickers {
+    font-size: 40px;
+    margin-top: 20px;
 }
 </style>
 </head>
-
 <body>
 
-<div class="bg"></div>
-<div class="galaxy"></div>
+<div class="container">
+    <h1>To The One Who Owns My Heart, JAH ❤️</h1>
 
-<audio id="bgMusic" src="yoursong.mp3" loop></audio>
+    <div class="letter">
+        From the very first moment you came into my life, everything changed in ways I never imagined possible. 
+        You are not just someone I love — you are my peace, my happiness, my safe place. 
+        You are the reason my ordinary days feel special and my darkest nights feel lighter. 
 
-<div id="passwordPage">
-    <div class="password-box">
-        <h2>🔒 Enter Our Secret Password</h2>
-        <input type="password" id="passInput" placeholder="Password">
-        <br>
-        <button onclick="checkPassword()">Unlock My Heart ❤️</button>
+        JAH, you mean more to me than words could ever fully explain. 
+        You are the smile I look for in every crowd, the name my heart whispers without me even realizing it. 
+        Every future I picture, every dream I build, every goal I chase — you are there beside me. 
+
+        Loving you isn't just a feeling. It’s a promise. A choice. A forever kind of thing. 
+        If the whole world stood against us, I would still choose you. 
+        Not once. Not twice. But every single day of my life. 
+
+        You are important to me in ways I can’t measure. 
+        You are my comfort when I’m tired, my strength when I’m weak, 
+        and the most beautiful part of my story. 
+
+        I don’t just love you, JAH. 
+        I treasure you. I respect you. I choose you. 
+        Today. Tomorrow. And for every lifetime that finds us again. ❤️
     </div>
-</div>
 
-<div id="mainPage">
-    <h1 id="title"></h1>
-    <div id="ring">💍</div>
-    <div id="typeText"></div>
-    <button id="proposal" onclick="alert('Forever and Always ❤️')">
-        💖 Will you be mine forever?
-    </button>
+    <button onclick="celebrate()">Will You Be Mine Forever? 💍</button>
+
+    <div class="stickers" id="stickers"></div>
 </div>
 
 <script>
+function celebrate() {
+    // Firework effect
+    var duration = 2 * 1000;
+    var end = Date.now() + duration;
 
-/* CHANGE THESE */
-const correctPassword="30122025";
-const loverName="JAH";
+    (function frame() {
+        confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+        });
+        confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+        });
 
-document.getElementById("title").innerHTML=
-"To My Beautiful "+loverName+" ❤️";
-
-/* PASSWORD */
-function checkPassword(){
-    const input=document.getElementById("passInput").value;
-    if(input===correctPassword){
-        document.getElementById("passwordPage").style.display="none";
-        document.getElementById("mainPage").style.display="block";
-        document.getElementById("bgMusic").play();
-        startTyping();
-    }else{
-        alert("Wrong password 😢");
-    }
-}
-
-/* LONG ROMANTIC MESSAGE */
-const message=`From the very first moment you walked into my life,
-everything changed in the most beautiful way.
-
-Before you, my world was quiet.
-After you, it became a universe full of colors,
-full of warmth,
-full of meaning.
-
-You are the calm in my chaos,
-the light in my darkest nights,
-the smile I never want to lose.
-
-Every heartbeat of mine whispers your name.
-Every dream I dream has your face in it.
-Every future I imagine has you standing beside me.
-
-If love had a definition,
-it would be you.
-
-If happiness had a face,
-it would look exactly like yours.
-
-Even if the whole world turned against us,
-I would still choose you.
-Again.
-And again.
-And again.
-
-Not just for today.
-Not just for tomorrow.
-But for every lifetime that finds us.
-
-I don't just love you.
-I choose you.
-Every single day.
-
-And I will keep choosing you,
-until my last breath,
-and beyond it.
-
-You are my always.
-You are my forever. ❤️`;
-
-let i=0;
-function startTyping(){
-    const speed=35;
-    function type(){
-        if(i<message.length){
-            document.getElementById("typeText").innerHTML+=message.charAt(i);
-            i++;
-            setTimeout(type,speed);
-        }else{
-            document.getElementById("proposal").style.display="inline-block";
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
         }
-    }
-    type();
+    }());
+
+    // Cute stickers
+    document.getElementById("stickers").innerHTML =
+        "💖✨🎆💍💕🥰🌸🎉❤️";
 }
 
-/* FIREWORK CLICK */
-document.addEventListener("click",(e)=>{
-    for(let i=0;i<10;i++){
-        let fw=document.createElement("div");
-        fw.className="firework";
-        fw.innerHTML="💖";
-        fw.style.left=e.clientX+"px";
-        fw.style.top=e.clientY+"px";
-        document.body.appendChild(fw);
-        setTimeout(()=>fw.remove(),1000);
-    }
-});
+// Password protection
+var pass = prompt("Enter Password 💌");
+if (pass !== "30122025") {
+    document.body.innerHTML = "<h1 style='color:red;'>Wrong Password 💔</h1>";
+}
 </script>
 
 </body>
