@@ -201,8 +201,12 @@ input.addEventListener("input",()=>{
     const b=document.createElement("div");
     b.className="burst";
     b.innerHTML="💖";
-    b.style.left=window.innerWidth/2+"px";
-    b.style.top=window.innerHeight/2+"px";
+
+    const rect = input.getBoundingClientRect();
+    b.style.position="fixed";
+    b.style.left=rect.left + rect.width/2 + "px";
+    b.style.top=rect.top + "px";
+
     document.body.appendChild(b);
     setTimeout(()=>b.remove(),1000);
 });
@@ -276,10 +280,10 @@ function yes(){
     setInterval(()=>{
         confetti({particleCount:100,spread:100,origin:{y:Math.random()}});
     },900);
+}
 function goBack(){
     document.getElementById("yesScreen").style.display="none";
     document.getElementById("main").style.display="flex";
-}
 }
 </script>
 
