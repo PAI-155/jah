@@ -15,7 +15,7 @@ body{
     overflow:hidden;
 }
 
-/* Floating background hearts */
+/* Floating Hearts */
 .bg{
     position:fixed;
     bottom:-30px;
@@ -28,7 +28,7 @@ body{
     100%{transform:translateY(-120vh);opacity:0}
 }
 
-/* Glass lock screen */
+/* LOCK SCREEN */
 #lock{
     position:fixed;
     width:100%;
@@ -36,18 +36,16 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    backdrop-filter:blur(10px);
 }
 .glass{
-    background:rgba(255,255,255,.25);
+    background:rgba(255,255,255,.3);
+    backdrop-filter:blur(10px);
     padding:40px;
     border-radius:25px;
     box-shadow:0 15px 50px rgba(255,105,180,.4);
     text-align:center;
 }
-.glass h2{
-    color:#ff2e7a;
-}
+.glass h2{color:#ff2e7a}
 input{
     font-size:28px;
     padding:10px;
@@ -56,20 +54,29 @@ input{
     text-align:center;
     letter-spacing:8px;
     outline:none;
+    margin-bottom:15px;
+}
+.enterBtn{
+    padding:8px 25px;
+    border:none;
+    border-radius:20px;
+    background:#ff1493;
+    color:white;
+    cursor:pointer;
 }
 
-/* Heart burst */
+/* Burst */
 .burst{
     position:absolute;
     font-size:20px;
     animation:burst 1s ease forwards;
 }
 @keyframes burst{
-    0%{opacity:1; transform:translateY(0) scale(1)}
-    100%{opacity:0; transform:translateY(-80px) scale(1.5)}
+    0%{opacity:1; transform:translateY(0)}
+    100%{opacity:0; transform:translateY(-80px)}
 }
 
-/* Main */
+/* MAIN */
 #main{
     display:none;
     height:100vh;
@@ -78,13 +85,13 @@ input{
     text-align:center;
     padding:20px;
 }
-.container{max-width:650px}
+.container{max-width:700px}
+
 h1{
     color:#ff0066;
     text-shadow:0 0 20px rgba(255,0,102,.6);
 }
 
-/* Letter */
 .letter{
     background:black;
     color:white;
@@ -93,8 +100,10 @@ h1{
     margin-top:20px;
     line-height:1.8;
     box-shadow:0 0 35px rgba(255,20,147,.8);
-    min-height:230px;
+    min-height:250px;
+    white-space:pre-line;
 }
+
 .cursor{
     display:inline-block;
     width:2px;
@@ -106,36 +115,17 @@ h1{
     25%,75%{opacity:0}
 }
 
-/* Ring animation */
-.ring{
-    font-size:40px;
-    margin-top:20px;
-    animation:ringOpen 2s ease infinite alternate;
-}
-@keyframes ringOpen{
-    from{transform:scale(1)}
-    to{transform:scale(1.2)}
-}
-
-button{
+#foreverBtn{
+    display:none;
     margin-top:25px;
     padding:12px 30px;
     border:none;
     border-radius:30px;
+    background:#ff1493;
+    color:white;
     font-size:18px;
     cursor:pointer;
-    transition:.3s;
 }
-#foreverBtn{background:#ff1493;color:white}
-#foreverBtn:hover{transform:scale(1.1)}
-
-/* Proposal */
-#proposal{display:none;margin-top:20px}
-.choice{
-    margin:10px;
-}
-#yes{background:#ff2e7a;color:white}
-#no{background:#ddd}
 
 /* YES SCREEN */
 #yesScreen{
@@ -173,6 +163,8 @@ setInterval(()=>{
   <div class="glass">
     <h2>Enter Our Secret Code 💌</h2>
     <input type="password" id="pass" maxlength="8">
+    <br>
+    <button class="enterBtn" onclick="unlock()">Enter</button>
   </div>
 </div>
 
@@ -181,12 +173,7 @@ setInterval(()=>{
   <div class="container">
     <h1>To The Love Of My Life, Baby Boo ❤️</h1>
     <div class="letter" id="letter"></div>
-    <div class="ring">💍</div>
-    <button id="foreverBtn" onclick="showProposal()">Will You Be Mine Forever?</button>
-    <div id="proposal">
-        <button class="choice" id="yes" onclick="yes()">YES 💖</button>
-        <button class="choice" id="no">NO 🙈</button>
-    </div>
+    <button id="foreverBtn" onclick="yes()">Will You Be Mine Forever? 💍</button>
   </div>
 </div>
 
@@ -200,16 +187,8 @@ setInterval(()=>{
 const correct="30122025";
 const input=document.getElementById("pass");
 
+/* Heart burst while typing */
 input.addEventListener("input",()=>{
-    burst();
-    if(input.value===correct){
-        document.getElementById("lock").style.display="none";
-        document.getElementById("main").style.display="flex";
-        typeText();
-    }
-});
-
-function burst(){
     const b=document.createElement("div");
     b.className="burst";
     b.innerHTML="💖";
@@ -217,50 +196,77 @@ function burst(){
     b.style.top=window.innerHeight/2+"px";
     document.body.appendChild(b);
     setTimeout(()=>b.remove(),1000);
+});
+
+function unlock(){
+    if(input.value===correct){
+        document.getElementById("lock").style.display="none";
+        document.getElementById("main").style.display="flex";
+        typeText();
+    }else{
+        alert("Wrong code 💔");
+    }
 }
 
-const text=`From the moment you came into my life,
-everything felt brighter.
+/* YOUR MESSAGE */
+const message=`From the moment you came into my life,
+you didn't just become someone I love —
+you became my world.
 
-Baby boo,
-you are my comfort, my peace,
-my favorite person in this world.
+You are not just important to me.
+You are my peace when everything feels heavy.
+You are my comfort when I feel tired.
+You are my strength when I feel weak.
 
-Every future I imagine
-has you standing beside me.
-Every dream I chase
-has your smile inside it.
+There are millions of people in this world,
+but somehow,
+my heart chose you.
+And it keeps choosing you.
+Every single day.
 
-Loving you isn’t temporary.
-It isn’t fragile.
-It’s forever.
+When I think about my future,
+I don't see money,
+I don't see success,
+I don't see anything else.
 
-I will choose you,
-every single day,
-no matter what life brings.
+I only see you.
+Standing beside me.
+Smiling.
+Holding my hand.
 
-Because baby boo,
-you are my always.
-You are my forever. ❤️`;
+You are the reason my heart feels full.
+You are the reason my days feel brighter.
+You are the reason love feels real.
+
+If I ever lose everything in this world
+but still have you,
+I would still feel like the luckiest person alive.
+
+That's how important you are to me.
+That's how deeply I love you.
+
+Not just for today.
+Not just for this moment.
+But for every tomorrow that comes.
+
+I love you more than words,
+more than distance,
+more than time itself. ❤️`;
 
 function typeText(){
     let i=0;
     const letter=document.getElementById("letter");
     function typing(){
-        if(i<text.length){
-            letter.innerHTML=text.substring(0,i)+"<span class='cursor'></span>";
+        if(i<message.length){
+            letter.innerHTML=message.substring(0,i)+"<span class='cursor'></span>";
             i++;
-            setTimeout(typing,30);
+            setTimeout(typing,25);
         }else{
-            letter.innerHTML=text;
+            letter.innerHTML=message;
+            document.getElementById("foreverBtn").style.display="inline-block";
         }
     }
     typing();
-}
-
-function showProposal(){
-    document.getElementById("proposal").style.display="block";
-    confetti({particleCount:150,spread:80,origin:{y:0.6}});
 }
 
 function yes(){
@@ -270,13 +276,6 @@ function yes(){
         confetti({particleCount:100,spread:100,origin:{y:Math.random()}});
     },900);
 }
-
-const noBtn=document.getElementById("no");
-noBtn.addEventListener("mouseover",()=>{
-    noBtn.style.position="absolute";
-    noBtn.style.left=Math.random()*80+"%";
-    noBtn.style.top=Math.random()*80+"%";
-});
 </script>
 
 </body>
