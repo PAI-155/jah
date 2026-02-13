@@ -3,130 +3,280 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For JAH ❤️</title>
+<title>Baby Boo Forever ❤️</title>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to bottom, #ffe6f0, #fff);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#ffd6eb,#fff);
+    overflow:hidden;
 }
 
-.container {
-    max-width: 500px;
-    padding: 20px;
+/* Floating background hearts */
+.bg{
+    position:fixed;
+    bottom:-30px;
+    animation:float 10s linear infinite;
+    opacity:.6;
+}
+@keyframes float{
+    0%{transform:translateY(0);opacity:0}
+    30%{opacity:1}
+    100%{transform:translateY(-120vh);opacity:0}
 }
 
-h1 {
-    color: #ff4d88;
-    font-size: 28px;
-    margin-bottom: 10px;
+/* Glass lock screen */
+#lock{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    backdrop-filter:blur(10px);
+}
+.glass{
+    background:rgba(255,255,255,.25);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 15px 50px rgba(255,105,180,.4);
+    text-align:center;
+}
+.glass h2{
+    color:#ff2e7a;
+}
+input{
+    font-size:28px;
+    padding:10px;
+    border:none;
+    border-radius:15px;
+    text-align:center;
+    letter-spacing:8px;
+    outline:none;
 }
 
-.letter {
-    background: black;
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    margin: 20px 0;
-    line-height: 1.6;
-    box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+/* Heart burst */
+.burst{
+    position:absolute;
+    font-size:20px;
+    animation:burst 1s ease forwards;
+}
+@keyframes burst{
+    0%{opacity:1; transform:translateY(0) scale(1)}
+    100%{opacity:0; transform:translateY(-80px) scale(1.5)}
 }
 
-button {
-    background: #ff1493;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 30px;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
+/* Main */
+#main{
+    display:none;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+.container{max-width:650px}
+h1{
+    color:#ff0066;
+    text-shadow:0 0 20px rgba(255,0,102,.6);
 }
 
-button:hover {
-    background: #ff69b4;
-    transform: scale(1.05);
+/* Letter */
+.letter{
+    background:black;
+    color:white;
+    padding:30px;
+    border-radius:25px;
+    margin-top:20px;
+    line-height:1.8;
+    box-shadow:0 0 35px rgba(255,20,147,.8);
+    min-height:230px;
+}
+.cursor{
+    display:inline-block;
+    width:2px;
+    background:white;
+    animation:blink 1s infinite;
+}
+@keyframes blink{
+    0%,50%,100%{opacity:1}
+    25%,75%{opacity:0}
 }
 
-.stickers {
-    font-size: 40px;
-    margin-top: 20px;
+/* Ring animation */
+.ring{
+    font-size:40px;
+    margin-top:20px;
+    animation:ringOpen 2s ease infinite alternate;
+}
+@keyframes ringOpen{
+    from{transform:scale(1)}
+    to{transform:scale(1.2)}
+}
+
+button{
+    margin-top:25px;
+    padding:12px 30px;
+    border:none;
+    border-radius:30px;
+    font-size:18px;
+    cursor:pointer;
+    transition:.3s;
+}
+#foreverBtn{background:#ff1493;color:white}
+#foreverBtn:hover{transform:scale(1.1)}
+
+/* Proposal */
+#proposal{display:none;margin-top:20px}
+.choice{
+    margin:10px;
+}
+#yes{background:#ff2e7a;color:white}
+#no{background:#ddd}
+
+/* YES SCREEN */
+#yesScreen{
+    display:none;
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:linear-gradient(135deg,#ff9acb,#fff);
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    font-size:30px;
+    color:#ff0066;
+    text-align:center;
 }
 </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>To The One Who Owns My Heart, JAH ❤️</h1>
+<script>
+/* Floating hearts */
+setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="bg";
+    h.innerHTML="💗";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(15+Math.random()*25)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),10000);
+},700);
+</script>
 
-    <div class="letter">
-        From the very first moment you came into my life, everything changed in ways I never imagined possible. 
-        You are not just someone I love — you are my peace, my happiness, my safe place. 
-        You are the reason my ordinary days feel special and my darkest nights feel lighter. 
+<!-- LOCK -->
+<div id="lock">
+  <div class="glass">
+    <h2>Enter Our Secret Code 💌</h2>
+    <input type="password" id="pass" maxlength="8">
+  </div>
+</div>
 
-        JAH, you mean more to me than words could ever fully explain. 
-        You are the smile I look for in every crowd, the name my heart whispers without me even realizing it. 
-        Every future I picture, every dream I build, every goal I chase — you are there beside me. 
-
-        Loving you isn't just a feeling. It’s a promise. A choice. A forever kind of thing. 
-        If the whole world stood against us, I would still choose you. 
-        Not once. Not twice. But every single day of my life. 
-
-        You are important to me in ways I can’t measure. 
-        You are my comfort when I’m tired, my strength when I’m weak, 
-        and the most beautiful part of my story. 
-
-        I don’t just love you, JAH. 
-        I treasure you. I respect you. I choose you. 
-        Today. Tomorrow. And for every lifetime that finds us again. ❤️
+<!-- MAIN -->
+<div id="main">
+  <div class="container">
+    <h1>To The Love Of My Life, Baby Boo ❤️</h1>
+    <div class="letter" id="letter"></div>
+    <div class="ring">💍</div>
+    <button id="foreverBtn" onclick="showProposal()">Will You Be Mine Forever?</button>
+    <div id="proposal">
+        <button class="choice" id="yes" onclick="yes()">YES 💖</button>
+        <button class="choice" id="no">NO 🙈</button>
     </div>
+  </div>
+</div>
 
-    <button onclick="celebrate()">Will You Be Mine Forever? 💍</button>
-
-    <div class="stickers" id="stickers"></div>
+<!-- YES SCREEN -->
+<div id="yesScreen">
+  💍 SHE SAID YES 💍 <br><br>
+  Baby Boo Forever ❤️
 </div>
 
 <script>
-function celebrate() {
-    // Firework effect
-    var duration = 2 * 1000;
-    var end = Date.now() + duration;
+const correct="30122025";
+const input=document.getElementById("pass");
 
-    (function frame() {
-        confetti({
-            particleCount: 5,
-            angle: 60,
-            spread: 55,
-            origin: { x: 0 }
-        });
-        confetti({
-            particleCount: 5,
-            angle: 120,
-            spread: 55,
-            origin: { x: 1 }
-        });
+input.addEventListener("input",()=>{
+    burst();
+    if(input.value===correct){
+        document.getElementById("lock").style.display="none";
+        document.getElementById("main").style.display="flex";
+        typeText();
+    }
+});
 
-        if (Date.now() < end) {
-            requestAnimationFrame(frame);
+function burst(){
+    const b=document.createElement("div");
+    b.className="burst";
+    b.innerHTML="💖";
+    b.style.left=window.innerWidth/2+"px";
+    b.style.top=window.innerHeight/2+"px";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1000);
+}
+
+const text=`From the moment you came into my life,
+everything felt brighter.
+
+Baby boo,
+you are my comfort, my peace,
+my favorite person in this world.
+
+Every future I imagine
+has you standing beside me.
+Every dream I chase
+has your smile inside it.
+
+Loving you isn’t temporary.
+It isn’t fragile.
+It’s forever.
+
+I will choose you,
+every single day,
+no matter what life brings.
+
+Because baby boo,
+you are my always.
+You are my forever. ❤️`;
+
+function typeText(){
+    let i=0;
+    const letter=document.getElementById("letter");
+    function typing(){
+        if(i<text.length){
+            letter.innerHTML=text.substring(0,i)+"<span class='cursor'></span>";
+            i++;
+            setTimeout(typing,30);
+        }else{
+            letter.innerHTML=text;
         }
-    }());
-
-    // Cute stickers
-    document.getElementById("stickers").innerHTML =
-        "💖✨🎆💍💕🥰🌸🎉❤️";
+    }
+    typing();
 }
 
-// Password protection
-var pass = prompt("Enter Password 💌");
-if (pass !== "30122025") {
-    document.body.innerHTML = "<h1 style='color:red;'>Wrong Password 💔</h1>";
+function showProposal(){
+    document.getElementById("proposal").style.display="block";
+    confetti({particleCount:150,spread:80,origin:{y:0.6}});
 }
+
+function yes(){
+    document.getElementById("main").style.display="none";
+    document.getElementById("yesScreen").style.display="flex";
+    setInterval(()=>{
+        confetti({particleCount:100,spread:100,origin:{y:Math.random()}});
+    },900);
+}
+
+const noBtn=document.getElementById("no");
+noBtn.addEventListener("mouseover",()=>{
+    noBtn.style.position="absolute";
+    noBtn.style.left=Math.random()*80+"%";
+    noBtn.style.top=Math.random()*80+"%";
+});
 </script>
 
 </body>
