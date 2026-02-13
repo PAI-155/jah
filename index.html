@@ -10,98 +10,92 @@ body{
     padding:0;
     overflow:hidden;
     font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at bottom,#1b2735 0%,#090a0f 100%);
     color:white;
     text-align:center;
 }
 
-/* STARS */
-.star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    animation: twinkle 2s infinite alternate;
-}
-@keyframes twinkle{
-    from{opacity:0.3;}
-    to{opacity:1;}
+/* BLURRED PHOTO BACKGROUND */
+.bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:url("yourphoto.jpg") center/cover no-repeat;
+    filter:blur(12px) brightness(40%);
+    z-index:-2;
 }
 
-/* PASSWORD PAGE */
+/* GALAXY LAYER */
+.galaxy{
+    position:fixed;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle,#ffffff33 1px,transparent 1px);
+    background-size:50px 50px;
+    animation: moveGalaxy 60s linear infinite;
+    z-index:-1;
+}
+@keyframes moveGalaxy{
+    from{transform:translate(0,0);}
+    to{transform:translate(-500px,-500px);}
+}
+
+/* PASSWORD */
 #passwordPage{
     position:absolute;
     width:100%;
-    top:40%;
+    top:35%;
 }
 
 .password-box{
-    background:rgba(255,255,255,0.1);
-    padding:30px;
+    background:rgba(0,0,0,0.7);
+    padding:40px;
     border-radius:20px;
+    box-shadow:0 0 30px hotpink;
     display:inline-block;
-    box-shadow:0 0 25px pink;
 }
 
 input{
     padding:12px;
     border-radius:20px;
-    border:2px solid #ff69b4;
-    outline:none;
+    border:2px solid hotpink;
     background:black;
     color:white;
-    font-size:16px;
     text-align:center;
+    font-size:16px;
 }
 
 button{
-    padding:10px 20px;
+    padding:12px 25px;
     border:none;
-    border-radius:20px;
-    background:#ff4b7d;
+    border-radius:25px;
+    background:hotpink;
     color:white;
     cursor:pointer;
     margin-top:15px;
     font-size:16px;
 }
+
 button:hover{
-    background:#ff1e62;
+    background:#ff1493;
 }
 
-/* MAIN PAGE */
+/* MAIN */
 #mainPage{
     display:none;
     position:absolute;
     width:100%;
-    top:18%;
-    padding:0 20px;
+    top:10%;
+    padding:20px;
 }
 
 h1{
     font-size:42px;
-    color:#ffb6c1;
     text-shadow:0 0 25px hotpink;
 }
 
-/* TYPEWRITER */
-#typeText{
-    width:80%;
-    margin:auto;
-    margin-top:20px;
-    font-size:20px;
-    line-height:1.8;
-    background:rgba(0,0,0,0.6);
-    padding:25px;
-    border-radius:20px;
-    box-shadow:0 0 20px rgba(255,105,180,0.7);
-    min-height:200px;
-}
-
-/* RING */
 #ring{
     font-size:60px;
-    margin-top:20px;
-    animation: ringPulse 2s infinite;
+    animation:ringPulse 2s infinite;
 }
 @keyframes ringPulse{
     0%{transform:scale(1);}
@@ -109,11 +103,32 @@ h1{
     100%{transform:scale(1);}
 }
 
+#typeText{
+    width:80%;
+    margin:auto;
+    margin-top:20px;
+    font-size:20px;
+    line-height:1.9;
+    background:rgba(0,0,0,0.65);
+    padding:30px;
+    border-radius:20px;
+    min-height:250px;
+    box-shadow:0 0 30px rgba(255,105,180,0.6);
+}
+
+/* PROPOSAL BUTTON */
+#proposal{
+    display:none;
+    margin-top:30px;
+    font-size:20px;
+    padding:15px 35px;
+}
+
 /* FIREWORK */
 .firework{
     position:absolute;
-    font-size:20px;
-    animation: explode 1s forwards;
+    font-size:25px;
+    animation:explode 1s forwards;
 }
 @keyframes explode{
     from{transform:scale(1);opacity:1;}
@@ -124,12 +139,17 @@ h1{
 
 <body>
 
+<div class="bg"></div>
+<div class="galaxy"></div>
+
+<audio id="bgMusic" src="yoursong.mp3" loop></audio>
+
 <div id="passwordPage">
     <div class="password-box">
         <h2>🔒 Enter Our Secret Password</h2>
         <input type="password" id="passInput" placeholder="Password">
         <br>
-        <button onclick="checkPassword()">Unlock ❤️</button>
+        <button onclick="checkPassword()">Unlock My Heart ❤️</button>
     </div>
 </div>
 
@@ -137,6 +157,9 @@ h1{
     <h1 id="title"></h1>
     <div id="ring">💍</div>
     <div id="typeText"></div>
+    <button id="proposal" onclick="alert('Forever and Always ❤️')">
+        💖 Will you be mine forever?
+    </button>
 </div>
 
 <script>
@@ -145,61 +168,84 @@ h1{
 const correctPassword="30122025";
 const loverName="JAH";
 
-/* TITLE */
 document.getElementById("title").innerHTML=
-"Happy Valentine Day, "+loverName+" ❤️";
+"To My Beautiful "+loverName+" ❤️";
 
-/* PASSWORD CHECK */
+/* PASSWORD */
 function checkPassword(){
     const input=document.getElementById("passInput").value;
     if(input===correctPassword){
         document.getElementById("passwordPage").style.display="none";
         document.getElementById("mainPage").style.display="block";
+        document.getElementById("bgMusic").play();
         startTyping();
     }else{
         alert("Wrong password 😢");
     }
 }
 
-/* TYPEWRITER TEXT */
-const message=`From the moment you came into my life,
-everything became brighter and more meaningful.
+/* LONG ROMANTIC MESSAGE */
+const message=`From the very first moment you walked into my life,
+everything changed in the most beautiful way.
 
-You are my peace, my happiness,
-and my safe place in this world.
+Before you, my world was quiet.
+After you, it became a universe full of colors,
+full of warmth,
+full of meaning.
 
-If the whole world stands against us,
-I will still choose you.
+You are the calm in my chaos,
+the light in my darkest nights,
+the smile I never want to lose.
 
-Over and over again.
+Every heartbeat of mine whispers your name.
+Every dream I dream has your face in it.
+Every future I imagine has you standing beside me.
 
-I love you more than words can ever explain. ❤️`;
+If love had a definition,
+it would be you.
+
+If happiness had a face,
+it would look exactly like yours.
+
+Even if the whole world turned against us,
+I would still choose you.
+Again.
+And again.
+And again.
+
+Not just for today.
+Not just for tomorrow.
+But for every lifetime that finds us.
+
+I don't just love you.
+I choose you.
+Every single day.
+
+And I will keep choosing you,
+until my last breath,
+and beyond it.
+
+You are my always.
+You are my forever. ❤️`;
 
 let i=0;
 function startTyping(){
-    const speed=40;
+    const speed=35;
     function type(){
         if(i<message.length){
             document.getElementById("typeText").innerHTML+=message.charAt(i);
             i++;
             setTimeout(type,speed);
+        }else{
+            document.getElementById("proposal").style.display="inline-block";
         }
     }
     type();
 }
 
-/* STARS */
-for(let i=0;i<120;i++){
-    let star=document.createElement("div");
-    star.className="star";
-    star.style.top=Math.random()*100+"vh";
-    star.style.left=Math.random()*100+"vw";
-    document.body.appendChild(star);
-}
-
-/* FIREWORK ON CLICK */
+/* FIREWORK CLICK */
 document.addEventListener("click",(e)=>{
-    for(let i=0;i<8;i++){
+    for(let i=0;i<10;i++){
         let fw=document.createElement("div");
         fw.className="firework";
         fw.innerHTML="💖";
