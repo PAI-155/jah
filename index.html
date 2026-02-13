@@ -13,7 +13,7 @@ background:linear-gradient(to bottom,#ffe6f0,#ffffff);
 overflow-x:hidden;
 }
 
-/* LOCK SCREEN */
+/* LOCK */
 #lock{
 position:fixed;
 width:100%;
@@ -23,8 +23,8 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-z-index:10;
 overflow:hidden;
+z-index:10;
 }
 
 input{
@@ -47,7 +47,7 @@ cursor:pointer;
 
 /* MAIN */
 .container{
-margin-top:80px;
+margin-top:60px;
 }
 
 .letter{
@@ -61,24 +61,28 @@ white-space:pre-wrap;
 min-height:250px;
 max-height:400px;
 overflow-y:auto;
+position:relative;
 }
 
-/* ONE HEART POP */
+/* HEART POP (CENTER SAFE) */
 .heart{
-position:fixed;
+position:absolute;
+left:50%;
+top:40%;
+transform:translate(-50%,-50%);
 font-size:18px;
-pointer-events:none;
 animation:fadeUp 0.8s ease forwards;
+pointer-events:none;
 }
 
 @keyframes fadeUp{
 to{
-transform:translateY(-40px);
+transform:translate(-50%,-80%);
 opacity:0;
 }
 }
 
-/* PASSWORD HEART RAIN */
+/* PASSWORD RAIN */
 @keyframes fall{
 to{
 transform:translateY(110vh);
@@ -87,7 +91,7 @@ opacity:0;
 }
 
 /* FIREWORK */
-.firework{
+.fire{
 position:fixed;
 font-size:24px;
 animation:boom 1s ease-out forwards;
@@ -103,15 +107,13 @@ pointer-events:none;
 
 <body>
 
-<!-- LOCK -->
 <div id="lock">
 <h2>Enter Password 💕</h2>
 <input type="password" id="password">
 <button onclick="checkPassword()">Enter</button>
 </div>
 
-<!-- MAIN -->
-<div class="container" style="display:none;" id="main">
+<div class="container" id="main" style="display:none;">
 <h1>To My Baby Boo ❤️</h1>
 <div class="letter" id="letter"></div>
 
@@ -126,11 +128,10 @@ pointer-events:none;
 
 const correctPassword="30122025";
 
-/* PASSWORD CHECK */
 function checkPassword(){
-if(document.getElementById("password").value===correctPassword){
-document.getElementById("lock").style.display="none";
-document.getElementById("main").style.display="block";
+if(password.value===correctPassword){
+lock.style.display="none";
+main.style.display="block";
 typeText();
 }else{
 alert("Wrong Password 😢");
@@ -139,16 +140,16 @@ alert("Wrong Password 😢");
 
 /* PASSWORD HEART RAIN */
 setInterval(()=>{
-if(document.getElementById("lock").style.display!=="none"){
-const heart=document.createElement("div");
-heart.innerHTML="❤️";
-heart.style.position="fixed";
-heart.style.left=Math.random()*100+"vw";
-heart.style.top="-20px";
-heart.style.fontSize="20px";
-heart.style.animation="fall 3s linear forwards";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),3000);
+if(lock.style.display!=="none"){
+const h=document.createElement("div");
+h.innerHTML="❤️";
+h.style.position="fixed";
+h.style.left=Math.random()*100+"vw";
+h.style.top="-20px";
+h.style.fontSize="20px";
+h.style.animation="fall 3s linear forwards";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),3000);
 }
 },500);
 
@@ -168,7 +169,7 @@ And it keeps choosing you.
 Every single day.
 
 When I think about my future,
-I see you.
+I only see you.
 Standing beside me.
 Smiling.
 Holding my hand.
@@ -177,49 +178,32 @@ You are the reason my heart feels full.
 You are the reason my days feel brighter.
 You are the reason love feels real.
 
-If I ever lose everything in this world
-but still have you,
-I would still feel like the luckiest person alive.
-
-That's how important you are to me.
-That's how deeply I love you.
-
-Not just for today.
-But for every tomorrow that comes.
-
 I love you more than words,
 more than distance,
 more than time itself. ❤️`;
 
-/* TYPE + ONE HEART PER LETTER */
 function typeText(){
 let i=0;
-const letter=document.getElementById("letter");
 letter.innerHTML="";
-document.getElementById("proposal").style.display="none";
+proposal.style.display="none";
 
 function typing(){
 if(i<message.length){
 
-const span=document.createElement("span");
-span.textContent=message[i];
-letter.appendChild(span);
+letter.innerHTML+=message[i];
 
-const rect=span.getBoundingClientRect();
+/* ONE HEART ONLY */
 const heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="💖";
-heart.style.left=rect.left+"px";
-heart.style.top=(rect.top-5)+"px";
-document.body.appendChild(heart);
-
+letter.appendChild(heart);
 setTimeout(()=>heart.remove(),800);
 
 i++;
-setTimeout(typing,40);
+setTimeout(typing,35);
 
 }else{
-document.getElementById("proposal").style.display="block";
+proposal.style.display="block";
 }
 }
 typing();
@@ -227,16 +211,15 @@ typing();
 
 /* FIREWORK */
 function yes(){
-for(let i=0;i<25;i++){
-const fire=document.createElement("div");
-fire.className="firework";
-fire.innerHTML="✨";
-fire.style.left=Math.random()*100+"vw";
-fire.style.top=Math.random()*100+"vh";
-document.body.appendChild(fire);
-setTimeout(()=>fire.remove(),1000);
+for(let i=0;i<40;i++){
+const f=document.createElement("div");
+f.className="fire";
+f.innerHTML="✨";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*100+"vh";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1000);
 }
-alert("She Said Yes! 💖💍");
 }
 
 function no(){
