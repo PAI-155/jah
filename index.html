@@ -2,52 +2,102 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Our Anniversary</title>
+<title>Happy Valentine</title>
+
 <style>
 body{
+  margin:0;
+  padding:0;
   background:black;
-  color:white;
+  overflow:hidden;
+  font-family:Arial, sans-serif;
   text-align:center;
-  font-family:Arial;
-  padding-top:100px;
+  color:white;
 }
+
 h1{
-  font-size:30px;
+  margin-top:80px;
+  font-size:40px;
 }
-#countdown{
-  font-size:25px;
-  margin-top:20px;
+
+button{
+  margin-top:40px;
+  padding:15px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  background:red;
+  color:white;
+  cursor:pointer;
+}
+
+#message{
+  display:none;
+  margin:40px;
+  font-size:18px;
+  line-height:1.6;
+}
+
+.heart{
+  position:fixed;
+  color:red;
+  font-size:20px;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float{
+  0%{
+    transform: translateY(100vh);
+    opacity:1;
+  }
+  100%{
+    transform: translateY(-10vh);
+    opacity:0;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<h1>Countdown to Our Anniversary ❤️</h1>
-<div id="countdown"></div>
+<h1>Happy Valentine’s Day ❤️</h1>
+
+<button onclick="showMessage()">Tap Here ❤️</button>
+
+<div id="message">
+  My love ❤️,<br><br>
+  From the moment you came into my life, everything became brighter and more meaningful.  
+  You are not just someone I love — you are my happiness, my peace, and my safe place.  
+  Every smile of yours makes my world complete, and every second with you is something I treasure deeply.  
+  <br><br>
+  I want you to know that you mean more to me than words can ever explain.  
+  You are the most important person in my life, and loving you is the most beautiful thing that has ever happened to me.  
+  <br><br>
+  No matter what happens, no matter how far or near we are,  
+  my heart will always choose you.  
+  I love you more than yesterday and less than tomorrow. ❤️
+</div>
 
 <script>
-var anniDate = new Date("December 30, 2025 00:00:00").getTime();
+function showMessage(){
+  document.getElementById("message").style.display="block";
+}
 
-var x = setInterval(function(){
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML="❤️";
+  heart.style.left=Math.random()*100+"vw";
+  heart.style.fontSize=(Math.random()*20+10)+"px";
+  heart.style.animationDuration=(Math.random()*3+2)+"s";
+  document.body.appendChild(heart);
 
-  var now = new Date().getTime();
-  var distance = anniDate - now;
+  setTimeout(()=>{
+    heart.remove();
+  },5000);
+}
 
-  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-  if(distance > 0){
-    document.getElementById("countdown").innerHTML =
-      days + " days " + hours + " hours " +
-      minutes + " minutes " + seconds + " seconds ";
-  } else {
-    document.getElementById("countdown").innerHTML =
-      "Happy Anniversary ❤️";
-  }
-
-},1000);
+setInterval(createHeart,300);
 </script>
 
 </body>
