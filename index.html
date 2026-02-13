@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>For My Love</title>
+
 <style>
 body{
     margin:0;
     padding:0;
     overflow:hidden;
     font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to top,#0f2027,#203a43,#2c5364);
+    background: radial-gradient(circle at bottom,#1b2735 0%,#090a0f 100%);
     color:white;
     text-align:center;
 }
@@ -23,7 +24,7 @@ body{
     animation: twinkle 2s infinite alternate;
 }
 @keyframes twinkle{
-    from{opacity:0.2;}
+    from{opacity:0.3;}
     to{opacity:1;}
 }
 
@@ -33,12 +34,26 @@ body{
     width:100%;
     top:40%;
 }
-input{
-    padding:10px;
+
+.password-box{
+    background:rgba(255,255,255,0.1);
+    padding:30px;
     border-radius:20px;
-    border:none;
-    outline:none;
+    display:inline-block;
+    box-shadow:0 0 25px pink;
 }
+
+input{
+    padding:12px;
+    border-radius:20px;
+    border:2px solid #ff69b4;
+    outline:none;
+    background:black;
+    color:white;
+    font-size:16px;
+    text-align:center;
+}
+
 button{
     padding:10px 20px;
     border:none;
@@ -46,7 +61,7 @@ button{
     background:#ff4b7d;
     color:white;
     cursor:pointer;
-    margin-top:10px;
+    margin-top:15px;
     font-size:16px;
 }
 button:hover{
@@ -58,65 +73,51 @@ button:hover{
     display:none;
     position:absolute;
     width:100%;
-    top:20%;
-    animation: fadeIn 2s ease-in;
-}
-@keyframes fadeIn{
-    from{opacity:0;}
-    to{opacity:1;}
+    top:18%;
+    padding:0 20px;
 }
 
 h1{
-    font-size:40px;
+    font-size:42px;
     color:#ffb6c1;
-    text-shadow:0 0 20px pink;
+    text-shadow:0 0 25px hotpink;
 }
 
-.message{
-    width:70%;
+/* TYPEWRITER */
+#typeText{
+    width:80%;
     margin:auto;
     margin-top:20px;
-    font-size:18px;
-    line-height:1.6;
-    animation: glow 3s infinite alternate;
-}
-@keyframes glow{
-    from{text-shadow:0 0 10px pink;}
-    to{text-shadow:0 0 25px red;}
-}
-
-/* HEARTS */
-.heart{
-    position:absolute;
-    color:pink;
-    animation: floatUp 5s linear infinite;
-}
-@keyframes floatUp{
-    from{transform:translateY(100vh);opacity:1;}
-    to{transform:translateY(-10vh);opacity:0;}
-}
-
-/* PETALS */
-.petal{
-    position:absolute;
     font-size:20px;
-    animation: fall 8s linear infinite;
-}
-@keyframes fall{
-    from{transform:translateY(-10vh);}
-    to{transform:translateY(100vh);}
+    line-height:1.8;
+    background:rgba(0,0,0,0.6);
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(255,105,180,0.7);
+    min-height:200px;
 }
 
-/* FLOWER */
-#flower{
+/* RING */
+#ring{
     font-size:60px;
     margin-top:20px;
-    animation: pulse 2s infinite;
+    animation: ringPulse 2s infinite;
 }
-@keyframes pulse{
+@keyframes ringPulse{
     0%{transform:scale(1);}
     50%{transform:scale(1.2);}
     100%{transform:scale(1);}
+}
+
+/* FIREWORK */
+.firework{
+    position:absolute;
+    font-size:20px;
+    animation: explode 1s forwards;
+}
+@keyframes explode{
+    from{transform:scale(1);opacity:1;}
+    to{transform:scale(3);opacity:0;}
 }
 </style>
 </head>
@@ -124,55 +125,71 @@ h1{
 <body>
 
 <div id="passwordPage">
-    <h2>🔒 Enter Our Secret Password</h2>
-    <input type="password" id="passInput" placeholder="Password">
-    <br>
-    <button onclick="checkPassword()">Unlock ❤️</button>
+    <div class="password-box">
+        <h2>🔒 Enter Our Secret Password</h2>
+        <input type="password" id="passInput" placeholder="Password">
+        <br>
+        <button onclick="checkPassword()">Unlock ❤️</button>
+    </div>
 </div>
 
 <div id="mainPage">
-    <h1>Happy Valentine Day, MYLOVE ❤️</h1>
-    <div id="flower">💐</div>
-    <div class="message">
-        From the moment you came into my life, everything became brighter, softer, and more meaningful.
-        You are not just someone I love — you are my peace, my happiness, and my safe place.
-        <br><br>
-        Every heartbeat of mine whispers your name.
-        Every dream I have begins and ends with you.
-        <br><br>
-        If the whole world stands against us,
-        I will still choose you.
-        Over and over again.
-        <br><br>
-        You are the most precious part of my life.
-        And loving you is the best thing that has ever happened to me.
-        <br><br>
-        I love you more than words can ever explain. ❤️
-    </div>
+    <h1 id="title"></h1>
+    <div id="ring">💍</div>
+    <div id="typeText"></div>
 </div>
 
 <script>
 
-/* CHANGE THIS */
-const correctPassword = "30122025";
-const loverName = "JAH";
+/* CHANGE THESE */
+const correctPassword="30122025";
+const loverName="JAH";
 
-document.querySelector("h1").innerHTML = 
-"Happy Valentine Day, " + loverName + " ❤️";
+/* TITLE */
+document.getElementById("title").innerHTML=
+"Happy Valentine Day, "+loverName+" ❤️";
 
 /* PASSWORD CHECK */
 function checkPassword(){
-    const input = document.getElementById("passInput").value;
-    if(input === correctPassword){
+    const input=document.getElementById("passInput").value;
+    if(input===correctPassword){
         document.getElementById("passwordPage").style.display="none";
         document.getElementById("mainPage").style.display="block";
+        startTyping();
     }else{
         alert("Wrong password 😢");
     }
 }
 
+/* TYPEWRITER TEXT */
+const message=`From the moment you came into my life,
+everything became brighter and more meaningful.
+
+You are my peace, my happiness,
+and my safe place in this world.
+
+If the whole world stands against us,
+I will still choose you.
+
+Over and over again.
+
+I love you more than words can ever explain. ❤️`;
+
+let i=0;
+function startTyping(){
+    const speed=40;
+    function type(){
+        if(i<message.length){
+            document.getElementById("typeText").innerHTML+=message.charAt(i);
+            i++;
+            setTimeout(type,speed);
+        }
+    }
+    type();
+}
+
 /* STARS */
-for(let i=0;i<100;i++){
+for(let i=0;i<120;i++){
     let star=document.createElement("div");
     star.className="star";
     star.style.top=Math.random()*100+"vh";
@@ -180,27 +197,18 @@ for(let i=0;i<100;i++){
     document.body.appendChild(star);
 }
 
-/* HEARTS */
-setInterval(()=>{
-    let heart=document.createElement("div");
-    heart.className="heart";
-    heart.innerHTML="❤️";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=Math.random()*20+10+"px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),5000);
-},500);
-
-/* PETALS */
-setInterval(()=>{
-    let petal=document.createElement("div");
-    petal.className="petal";
-    petal.innerHTML="🌸";
-    petal.style.left=Math.random()*100+"vw";
-    document.body.appendChild(petal);
-    setTimeout(()=>petal.remove(),8000);
-},1000);
-
+/* FIREWORK ON CLICK */
+document.addEventListener("click",(e)=>{
+    for(let i=0;i<8;i++){
+        let fw=document.createElement("div");
+        fw.className="firework";
+        fw.innerHTML="💖";
+        fw.style.left=e.clientX+"px";
+        fw.style.top=e.clientY+"px";
+        document.body.appendChild(fw);
+        setTimeout(()=>fw.remove(),1000);
+    }
+});
 </script>
 
 </body>
