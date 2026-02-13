@@ -2,167 +2,146 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baby Boo ❤️</title>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<title>To My Baby Boo ❤️</title>
 
 <style>
 body{
 margin:0;
-font-family:Segoe UI;
-background:linear-gradient(135deg,#ffd6eb,#fff);
-overflow:hidden;
+font-family:serif;
+text-align:center;
+background:linear-gradient(to bottom,#ffe6f0,#ffffff);
+overflow-x:hidden;
 }
 
-/* LOCK */
+/* LOCK SCREEN */
 #lock{
 position:fixed;
 width:100%;
-height:100vh;
+height:100%;
+background:white;
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
+z-index:10;
 }
-.glass{
-background:rgba(255,255,255,.3);
-backdrop-filter:blur(15px);
-padding:40px;
-border-radius:25px;
-box-shadow:0 15px 50px rgba(255,105,180,.5);
-text-align:center;
-}
+
 input{
-font-size:26px;
 padding:10px;
-border:none;
-border-radius:15px;
-text-align:center;
-letter-spacing:8px;
-outline:none;
-margin-top:10px;
+font-size:16px;
+border-radius:10px;
+border:1px solid pink;
 }
+
 button{
-margin-top:15px;
-padding:8px 25px;
+padding:10px 20px;
 border:none;
 border-radius:20px;
-background:#ff1493;
+background:#ff4d88;
 color:white;
+font-size:16px;
+margin:10px;
 cursor:pointer;
 }
 
 /* MAIN */
-#main{
-display:none;
-height:100vh;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
+.container{
+margin-top:80px;
 }
+
 .letter{
 background:black;
 color:white;
 padding:30px;
 border-radius:25px;
 max-width:600px;
-white-space:pre-line;
+margin:auto;
+white-space:pre-wrap;
 min-height:250px;
-}
-#proposal{display:none;margin-top:20px;}
-
-#yesScreen{
-display:none;
-position:fixed;
-width:100%;
-height:100vh;
-background:black;
-color:#ff4da6;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-font-size:35px;
-text-align:center;
+max-height:400px;
+overflow-y:auto;
 }
 
-.backBtn{
-margin-top:30px;
-background:white;
-color:#ff1493;
-font-weight:bold;
-}
-
+/* floating heart */
 .heart{
-position:absolute;
-color:#ff4da6;
-animation:pop 1s ease forwards;
+position:fixed;
+font-size:18px;
+pointer-events:none;
+animation:fadeUp 0.8s ease forwards;
 }
-@keyframes pop{
-0%{opacity:0;transform:translateY(-10px) scale(.5)}
-100%{opacity:1;transform:translateY(-40px) scale(1)}
+
+@keyframes fadeUp{
+to{
+transform:translateY(-40px);
+opacity:0;
 }
+}
+
+/* password rain */
+@keyframes fall{
+to{
+transform:translateY(110vh);
+opacity:0;
+}
+}
+
 </style>
 </head>
+
 <body>
 
+<!-- LOCK SCREEN -->
 <div id="lock">
-<div class="glass">
-<h2>Enter Our Secret Code 💌</h2>
-<input type="password" id="pass" maxlength="8">
-<br>
-<button onclick="unlock()">Enter</button>
-</div>
+<h2>Enter Password 💕</h2>
+<input type="password" id="password">
+<button onclick="checkPassword()">Enter</button>
 </div>
 
-<div id="main">
-<div>
+<!-- MAIN CONTENT -->
+<div class="container" style="display:none;" id="main">
 <h1>To My Baby Boo ❤️</h1>
 <div class="letter" id="letter"></div>
 
-<div id="proposal">
-<h2>Will you be my forever? 💍</h2>
-<button onclick="yes()">YES ❤️</button>
-<button id="noBtn">NO 💔</button>
+<div id="proposal" style="display:none;">
+<h2>Will You Be Mine Forever? 💍</h2>
+<button onclick="yes()">Yes</button>
+<button onclick="no()">No</button>
 </div>
-</div>
-</div>
-
-<div id="yesScreen">
-<div>She said YES yayyy! 🎉</div>
-<div style="font-size:25px;margin-top:15px;">I love you so much ❤️</div>
-<button class="backBtn" onclick="goBack()">Read Our Story Again 💌</button>
 </div>
 
 <script>
-const correct="30122025";
-const input=document.getElementById("pass");
-let confettiInterval;
 
-/* PASSWORD HEART */
-input.addEventListener("input",function(){
-const rect=input.getBoundingClientRect();
-const heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=(rect.left+rect.width/2)+"px";
-heart.style.top=(rect.top-10)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),1000);
-});
+const correctPassword="30122025"; 
 
-function unlock(){
-if(input.value===correct){
+function checkPassword(){
+const input=document.getElementById("password").value;
+if(input===correctPassword){
 document.getElementById("lock").style.display="none";
-document.getElementById("main").style.display="flex";
+document.getElementById("main").style.display="block";
 typeText();
 }else{
-alert("Wrong Code 💔");
+alert("Wrong Password 😢");
 }
 }
 
-/* LETTER */
+/* PASSWORD HEART RAIN */
+setInterval(()=>{
+if(document.getElementById("lock").style.display!=="none"){
+const heart=document.createElement("div");
+heart.innerHTML="❤️";
+heart.style.position="fixed";
+heart.style.left=Math.random()*100+"vw";
+heart.style.top="-20px";
+heart.style.fontSize="20px";
+heart.style.animation="fall 3s linear forwards";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),3000);
+}
+},400);
+
 const message=`From the moment you came into my life,
-you didn't just become someone I love you became my world.
+you didn't just become someone I love —
+you became my world.
 
 You are not just important to me.
 You are my peace when everything feels heavy.
@@ -208,10 +187,24 @@ document.getElementById("proposal").style.display="none";
 
 function typing(){
 if(i<message.length){
-letter.innerHTML=message.substring(0,i);
-createLetterHeart(letter);
+
+letter.innerHTML+=`<span class="char">${message[i]}</span>`;
+
+const chars=document.querySelectorAll(".char");
+const currentChar=chars[chars.length-1];
+const rect=currentChar.getBoundingClientRect();
+
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💖";
+heart.style.left=rect.left+"px";
+heart.style.top=(rect.top-10)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),800);
+
 i++;
-setTimeout(typing,60);
+setTimeout(typing,35);
+
 }else{
 document.getElementById("proposal").style.display="block";
 }
@@ -219,40 +212,14 @@ document.getElementById("proposal").style.display="block";
 typing();
 }
 
-function createLetterHeart(el){
-const rect=el.getBoundingClientRect();
-const heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="💖";
-heart.style.left=(rect.left+rect.width/2)+"px";
-heart.style.top=(rect.top+50)+"px";
-document.body.appendChild(heart);
-setTimeout(()=>heart.remove(),1000);
-}
-
-/* NO BUTTON RUN */
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",function(){
-noBtn.style.position="absolute";
-noBtn.style.left=Math.random()*80+"%";
-noBtn.style.top=Math.random()*80+"%";
-});
-
-/* YES */
 function yes(){
-document.getElementById("main").style.display="none";
-document.getElementById("yesScreen").style.display="flex";
-confettiInterval=setInterval(()=>{
-confetti({particleCount:150,spread:100});
-},900);
+alert("She Said Yes! 💖💍");
 }
 
-/* BACK */
-function goBack(){
-clearInterval(confettiInterval);
-document.getElementById("yesScreen").style.display="none";
-document.getElementById("main").style.display="flex";
+function no(){
+alert("You can't press No 😜");
 }
+
 </script>
 
 </body>
