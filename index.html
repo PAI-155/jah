@@ -179,7 +179,17 @@ setInterval(()=>{
 <!-- YES SCREEN -->
 <div id="yesScreen">
   💍 SHE SAID YES 💍 <br><br>
-  Baby Boo Forever ❤️
+  I LOVE U SO MUCHHHH ❤️
+  <br><br>
+  <button onclick="goBack()" style="
+      padding:10px 25px;
+      border:none;
+      border-radius:25px;
+      background:#ff1493;
+      color:white;
+      font-size:18px;
+      cursor:pointer;
+  ">Back 💌</button>
 </div>
 
 <script>
@@ -266,6 +276,10 @@ function yes(){
     setInterval(()=>{
         confetti({particleCount:100,spread:100,origin:{y:Math.random()}});
     },900);
+function goBack(){
+    document.getElementById("yesScreen").style.display="none";
+    document.getElementById("main").style.display="flex";
+}
 }
 </script>
 
