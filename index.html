@@ -24,6 +24,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 z-index:10;
+overflow:hidden;
 }
 
 input{
@@ -62,7 +63,7 @@ max-height:400px;
 overflow-y:auto;
 }
 
-/* floating heart */
+/* ONE HEART POP */
 .heart{
 position:fixed;
 font-size:18px;
@@ -77,7 +78,7 @@ opacity:0;
 }
 }
 
-/* password rain */
+/* PASSWORD HEART RAIN */
 @keyframes fall{
 to{
 transform:translateY(110vh);
@@ -85,19 +86,31 @@ opacity:0;
 }
 }
 
+/* FIREWORK */
+.firework{
+position:fixed;
+font-size:24px;
+animation:boom 1s ease-out forwards;
+pointer-events:none;
+}
+
+@keyframes boom{
+0%{transform:scale(0);opacity:1;}
+100%{transform:scale(2);opacity:0;}
+}
 </style>
 </head>
 
 <body>
 
-<!-- LOCK SCREEN -->
+<!-- LOCK -->
 <div id="lock">
 <h2>Enter Password 💕</h2>
 <input type="password" id="password">
 <button onclick="checkPassword()">Enter</button>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <div class="container" style="display:none;" id="main">
 <h1>To My Baby Boo ❤️</h1>
 <div class="letter" id="letter"></div>
@@ -111,11 +124,11 @@ opacity:0;
 
 <script>
 
-const correctPassword="30122025"; 
+const correctPassword="30122025";
 
+/* PASSWORD CHECK */
 function checkPassword(){
-const input=document.getElementById("password").value;
-if(input===correctPassword){
+if(document.getElementById("password").value===correctPassword){
 document.getElementById("lock").style.display="none";
 document.getElementById("main").style.display="block";
 typeText();
@@ -137,7 +150,7 @@ heart.style.animation="fall 3s linear forwards";
 document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),3000);
 }
-},400);
+},500);
 
 const message=`From the moment you came into my life,
 you didn't just become someone I love —
@@ -172,13 +185,13 @@ That's how important you are to me.
 That's how deeply I love you.
 
 Not just for today.
-Not just for this moment.
 But for every tomorrow that comes.
 
 I love you more than words,
 more than distance,
 more than time itself. ❤️`;
 
+/* TYPE + ONE HEART PER LETTER */
 function typeText(){
 let i=0;
 const letter=document.getElementById("letter");
@@ -188,22 +201,22 @@ document.getElementById("proposal").style.display="none";
 function typing(){
 if(i<message.length){
 
-letter.innerHTML+=`<span class="char">${message[i]}</span>`;
+const span=document.createElement("span");
+span.textContent=message[i];
+letter.appendChild(span);
 
-const chars=document.querySelectorAll(".char");
-const currentChar=chars[chars.length-1];
-const rect=currentChar.getBoundingClientRect();
-
+const rect=span.getBoundingClientRect();
 const heart=document.createElement("div");
 heart.className="heart";
 heart.innerHTML="💖";
 heart.style.left=rect.left+"px";
-heart.style.top=(rect.top-10)+"px";
+heart.style.top=(rect.top-5)+"px";
 document.body.appendChild(heart);
+
 setTimeout(()=>heart.remove(),800);
 
 i++;
-setTimeout(typing,35);
+setTimeout(typing,40);
 
 }else{
 document.getElementById("proposal").style.display="block";
@@ -212,12 +225,22 @@ document.getElementById("proposal").style.display="block";
 typing();
 }
 
+/* FIREWORK */
 function yes(){
+for(let i=0;i<25;i++){
+const fire=document.createElement("div");
+fire.className="firework";
+fire.innerHTML="✨";
+fire.style.left=Math.random()*100+"vw";
+fire.style.top=Math.random()*100+"vh";
+document.body.appendChild(fire);
+setTimeout(()=>fire.remove(),1000);
+}
 alert("She Said Yes! 💖💍");
 }
 
 function no(){
-alert("You can't press No 😜");
+alert("No is not allowed 😜");
 }
 
 </script>
