@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Baby Boo ❤️</title>
+<title>Baby Boo Forever ❤️</title>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
+*{box-sizing:border-box}
 body{
     margin:0;
     font-family:'Segoe UI',sans-serif;
@@ -14,75 +15,62 @@ body{
     overflow:hidden;
 }
 
-/* Floating Hearts Background */
-.bg-heart{
+/* Floating background hearts */
+.bg{
     position:fixed;
-    bottom:-20px;
-    font-size:20px;
-    animation:floatUp 8s linear infinite;
-    opacity:0.6;
+    bottom:-30px;
+    animation:float 10s linear infinite;
+    opacity:.6;
 }
-@keyframes floatUp{
-    0%{transform:translateY(0);opacity:0;}
-    30%{opacity:1;}
-    100%{transform:translateY(-110vh);opacity:0;}
-}
-
-/* Fade Animation */
-.fade{
-    animation:fadeIn 1.2s ease forwards;
-}
-@keyframes fadeIn{
-    from{opacity:0; transform:scale(0.95);}
-    to{opacity:1; transform:scale(1);}
+@keyframes float{
+    0%{transform:translateY(0);opacity:0}
+    30%{opacity:1}
+    100%{transform:translateY(-120vh);opacity:0}
 }
 
-/* PASSWORD SCREEN */
-#lockScreen{
+/* Glass lock screen */
+#lock{
     position:fixed;
     width:100%;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
+    backdrop-filter:blur(10px);
 }
-
-.lockBox{
-    background:white;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 40px rgba(255,105,180,0.4);
+.glass{
+    background:rgba(255,255,255,.25);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 15px 50px rgba(255,105,180,.4);
     text-align:center;
 }
-
-.lockBox h2{
+.glass h2{
     color:#ff2e7a;
 }
-
 input{
-    font-size:24px;
+    font-size:28px;
     padding:10px;
-    border-radius:12px;
-    border:2px solid #ff4d88;
+    border:none;
+    border-radius:15px;
     text-align:center;
-    letter-spacing:6px;
+    letter-spacing:8px;
     outline:none;
 }
 
-/* Pop Heart */
-.pop{
+/* Heart burst */
+.burst{
     position:absolute;
-    font-size:22px;
-    animation:pop 1s ease forwards;
+    font-size:20px;
+    animation:burst 1s ease forwards;
 }
-@keyframes pop{
-    0%{opacity:1; transform:translateY(0);}
-    100%{opacity:0; transform:translateY(-70px);}
+@keyframes burst{
+    0%{opacity:1; transform:translateY(0) scale(1)}
+    100%{opacity:0; transform:translateY(-80px) scale(1.5)}
 }
 
-/* MAIN */
-#mainContent{
+/* Main */
+#main{
     display:none;
     height:100vh;
     justify-content:center;
@@ -90,170 +78,181 @@ input{
     text-align:center;
     padding:20px;
 }
-
-.container{max-width:600px;}
-
+.container{max-width:650px}
 h1{
-    color:#ff2e7a;
-    text-shadow:0 0 15px rgba(255,20,147,0.6);
+    color:#ff0066;
+    text-shadow:0 0 20px rgba(255,0,102,.6);
 }
 
+/* Letter */
 .letter{
     background:black;
     color:white;
-    padding:25px;
-    border-radius:20px;
+    padding:30px;
+    border-radius:25px;
     margin-top:20px;
-    line-height:1.7;
-    box-shadow:0 0 30px rgba(255,20,147,0.8);
-    min-height:220px;
+    line-height:1.8;
+    box-shadow:0 0 35px rgba(255,20,147,.8);
+    min-height:230px;
+}
+.cursor{
+    display:inline-block;
+    width:2px;
+    background:white;
+    animation:blink 1s infinite;
+}
+@keyframes blink{
+    0%,50%,100%{opacity:1}
+    25%,75%{opacity:0}
+}
+
+/* Ring animation */
+.ring{
+    font-size:40px;
+    margin-top:20px;
+    animation:ringOpen 2s ease infinite alternate;
+}
+@keyframes ringOpen{
+    from{transform:scale(1)}
+    to{transform:scale(1.2)}
 }
 
 button{
     margin-top:25px;
-    background:#ff1493;
-    border:none;
     padding:12px 30px;
+    border:none;
     border-radius:30px;
-    color:white;
-    font-size:16px;
+    font-size:18px;
     cursor:pointer;
-    transition:0.3s;
-    position:relative;
+    transition:.3s;
 }
+#foreverBtn{background:#ff1493;color:white}
+#foreverBtn:hover{transform:scale(1.1)}
 
-button:hover{
-    transform:scale(1.1);
-    background:#ff69b4;
-}
-
-#proposal{
-    display:none;
-    margin-top:30px;
-}
-
-.choiceBtn{
+/* Proposal */
+#proposal{display:none;margin-top:20px}
+.choice{
     margin:10px;
 }
+#yes{background:#ff2e7a;color:white}
+#no{background:#ddd}
 
-/* YES screen */
+/* YES SCREEN */
 #yesScreen{
     display:none;
     position:fixed;
     width:100%;
     height:100vh;
+    background:linear-gradient(135deg,#ff9acb,#fff);
     justify-content:center;
     align-items:center;
     flex-direction:column;
-    background:linear-gradient(135deg,#ff9acb,#fff);
-    text-align:center;
-    font-size:28px;
+    font-size:30px;
     color:#ff0066;
+    text-align:center;
 }
 </style>
 </head>
 <body>
 
-<!-- Floating Hearts Generator -->
 <script>
+/* Floating hearts */
 setInterval(()=>{
-    const heart=document.createElement("div");
-    heart.className="bg-heart";
-    heart.innerHTML="💗";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.fontSize=(15+Math.random()*25)+"px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),8000);
-},800);
+    const h=document.createElement("div");
+    h.className="bg";
+    h.innerHTML="💗";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(15+Math.random()*25)+"px";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),10000);
+},700);
 </script>
 
-<!-- LOCK SCREEN -->
-<div id="lockScreen">
-    <div class="lockBox fade">
-        <h2>Enter Our Secret Code 💌</h2>
-        <input type="password" id="password" maxlength="8">
-    </div>
+<!-- LOCK -->
+<div id="lock">
+  <div class="glass">
+    <h2>Enter Our Secret Code 💌</h2>
+    <input type="password" id="pass" maxlength="8">
+  </div>
 </div>
 
 <!-- MAIN -->
-<div id="mainContent" class="fade">
-    <div class="container">
-        <h1>To The Love Of My Life, Baby Boo ❤️</h1>
-        <div class="letter" id="typedText"></div>
-        <button onclick="showProposal()">Will You Be Mine Forever? 💍</button>
-
-        <div id="proposal">
-            <button class="choiceBtn" onclick="sayYes()">YES 💖</button>
-            <button class="choiceBtn" id="noBtn">NO 🙈</button>
-        </div>
+<div id="main">
+  <div class="container">
+    <h1>To The Love Of My Life, Baby Boo ❤️</h1>
+    <div class="letter" id="letter"></div>
+    <div class="ring">💍</div>
+    <button id="foreverBtn" onclick="showProposal()">Will You Be Mine Forever?</button>
+    <div id="proposal">
+        <button class="choice" id="yes" onclick="yes()">YES 💖</button>
+        <button class="choice" id="no">NO 🙈</button>
     </div>
+  </div>
 </div>
 
 <!-- YES SCREEN -->
 <div id="yesScreen">
-    💍 SHE SAID YES 💍 <br><br>
-    I LOVE U AO MUCHHHHH ❤️
+  💍 SHE SAID YES 💍 <br><br>
+  Baby Boo Forever ❤️
 </div>
 
 <script>
-const correctPassword="30122025";
-const input=document.getElementById("password");
+const correct="30122025";
+const input=document.getElementById("pass");
 
 input.addEventListener("input",()=>{
-    popHeart();
-    if(input.value===correctPassword){
-        document.getElementById("lockScreen").style.display="none";
-        document.getElementById("mainContent").style.display="flex";
-        typeLetter();
+    burst();
+    if(input.value===correct){
+        document.getElementById("lock").style.display="none";
+        document.getElementById("main").style.display="flex";
+        typeText();
     }
 });
 
-function popHeart(){
-    const h=document.createElement("div");
-    h.className="pop";
-    h.innerHTML="💖";
-    h.style.left=(window.innerWidth/2)+"px";
-    h.style.top=(window.innerHeight/2)+"px";
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),1000);
+function burst(){
+    const b=document.createElement("div");
+    b.className="burst";
+    b.innerHTML="💖";
+    b.style.left=window.innerWidth/2+"px";
+    b.style.top=window.innerHeight/2+"px";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1000);
 }
 
-const message=`From the moment you came into my life,
-you didn't just become someone I love —
-you became my world.
+const text=`From the moment you came into my life,
+everything felt brighter.
 
-You are not just important to me.
-You are my peace when everything feels heavy.
-You are my comfort when I feel tired.
-You are my strength when I feel weak.
+Baby boo,
+you are my comfort, my peace,
+my favorite person in this world.
 
-There are millions of people in this world,
-but somehow,
-my heart chose you.
-And it keeps choosing you.
-Every single day.
+Every future I imagine
+has you standing beside me.
+Every dream I chase
+has your smile inside it.
 
-When I think about my future,
-I only see you.
-Standing beside me.
-Smiling.
-Holding my hand.
+Loving you isn’t temporary.
+It isn’t fragile.
+It’s forever.
 
-You are the reason my heart feels full.
-You are the reason my days feel brighter.
-You are the reason love feels real.
+I will choose you,
+every single day,
+no matter what life brings.
 
-I love you more than words,
-more than distance,
-more than time itself. ❤️`;
+Because baby boo,
+you are my always.
+You are my forever. ❤️`;
 
-function typeLetter(){
+function typeText(){
     let i=0;
+    const letter=document.getElementById("letter");
     function typing(){
         if(i<text.length){
-            document.getElementById("typedText").innerHTML+=text.charAt(i);
+            letter.innerHTML=text.substring(0,i)+"<span class='cursor'></span>";
             i++;
             setTimeout(typing,30);
+        }else{
+            letter.innerHTML=text;
         }
     }
     typing();
@@ -261,18 +260,18 @@ function typeLetter(){
 
 function showProposal(){
     document.getElementById("proposal").style.display="block";
-    confetti({particleCount:120,spread:70,origin:{y:0.6}});
+    confetti({particleCount:150,spread:80,origin:{y:0.6}});
 }
 
-function sayYes(){
-    document.getElementById("mainContent").style.display="none";
+function yes(){
+    document.getElementById("main").style.display="none";
     document.getElementById("yesScreen").style.display="flex";
     setInterval(()=>{
-        confetti({particleCount:80,spread:100,origin:{y:Math.random()}});
-    },800);
+        confetti({particleCount:100,spread:100,origin:{y:Math.random()}});
+    },900);
 }
 
-const noBtn=document.getElementById("noBtn");
+const noBtn=document.getElementById("no");
 noBtn.addEventListener("mouseover",()=>{
     noBtn.style.position="absolute";
     noBtn.style.left=Math.random()*80+"%";
